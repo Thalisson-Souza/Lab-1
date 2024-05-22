@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+double determinante3x(double m[3][3]) 
+{
+    double a = m[0][0];
+    double b = m[0][1];
+    double c = m[0][2];
+    double d = m[1][0];
+    double e = m[1][1];
+    double f = m[1][2];
+    double g = m[2][0];
+    double h = m[2][1];
+    double i = m[2][2];
+
+    double determinante = a * (e * i - f * h) - b * (d * i - f * g) + c * (d * h - e * g);
+    return determinante;
+}
+
+int main()
+{
+    double m[3][3] = {
+        {2.0, 5.0, 3.0},
+        {1.0, -2.0, 4.0},
+        {3.0, 6.0, -1.0}
+    };
+    double det = determinante3x(m);
+    printf("O determinante é: %f\n", det);
+}
