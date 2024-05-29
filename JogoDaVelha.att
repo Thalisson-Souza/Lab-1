@@ -137,7 +137,16 @@ void jogar(){
             printf("\nO jogo empatou, inicie outra rodada!\n\n");
 }   
 
-
 int main(){
+    printf("Jogar 1 digite seu nome: " );
+    fgets(jogadorX, 50, stdin);
+    printf("Jogar 2 digite seu nome: " );
+    fgets(jogadorO, 50, stdin);
+    return 0;
+
+    inicioMat();
+    jogar();
+
+    return 0;
 
 }
