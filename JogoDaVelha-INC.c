@@ -121,7 +121,7 @@ void jogar(){
         do{
             tela_cor_fundo(0,0,0);
             desenha_jogo();
-            printf("Jogador %s, efetue sua jogada:\n ", jogadorAtual); //ajeitar o alternar d jogadores... esta alternando na primeira vez.
+            printf("Jogador %s onde você deseja jogar?\n", jogadorAtual); //ajeitar o alternar d jogadores... esta alternando na primeira vez.
             scanf("%d%d", &x, &y);
             valida = lugarEvalido(x, y);
             if(valida == 1)
