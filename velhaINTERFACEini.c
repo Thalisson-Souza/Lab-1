@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -163,24 +164,24 @@ void jogar(){
         }
 }   
 
-    /*
+    
     void desenha_tela(){
 
-    #define LIN_MAX 24
-    #define COL_MAX 80
+    #define LIN_MAX 35
+    #define COL_MAX 90
 
     tela_cor_normal();
     tela_limpa();
     tela_cor_fundo(102,0,0);
         
-    //tela_cor_normal();
-    tela_lincol(1, 1);
+    tela_cor_normal();
+    tela_lincol(1, 10);
     for (int i = 1; i <= COL_MAX; i++) {
         putchar(' ');
     }
 
     // Desenhar a borda inferior
-    tela_lincol(LIN_MAX, 1);
+    tela_lincol(LIN_MAX, 10);
     for (int i = 1; i <= COL_MAX; i++) {
         putchar(' ');
     }
@@ -197,33 +198,57 @@ void jogar(){
     //desenho do titulo do jogo
 
     tela_cor_letra(255,255,255);
-    tela_lincol(5,25);
-    printf(" ****************************");
-    tela_lincol(6,25);
-    printf("* BEM VINDO AO JOGO DA VELHA! *");
-    tela_lincol(7,25);
-    printf(" ****************************");
+    
+    tela_lincol(6,24);
+    printf("   _                         _                   _ _           ");
+
+    tela_lincol(7,24);
+    printf("  (_)                       | |                 | | |          ");
+
+
+    tela_lincol(8,24);
+    printf("   _  ___   __ _  ___     __| | __ _  __   _____| | |__   __ _ ");
+
+    tela_lincol(9,24);
+    printf("  | |/ _ \\ / _` |/ _ \\   / _` |/ _` | \\ \\ / / _ \\ | '_ \\ / _` |");
+
+    tela_lincol(9,24);
+    printf("  | | (_) | (_| | (_) | | (_| | (_| |  \\ V /  __/ | | | | (_| |");
+
+    tela_lincol(10,24);
+    printf("  | |\\___/ \\__, |\\___/   \\__,_|\\__,_|   \\_/ \\___|_|_| |_|\\__,_|");
+
+    tela_lincol(11,24);
+    printf(" _/ |       __/ |                                              ");
+
+    tela_lincol(12,24);
+    printf("|__/       |___/                                               ");
+
+
+
+
+
 
     //desenho das instruções
-    tela_lincol(14,22);
+    tela_lincol(20,40);
     printf("Pressione ENTER para iniciar o jogo");
 
     //desenhar opcao p sair
-    tela_lincol(16,28);
+    tela_lincol(22,46);
     printf("Pressione Q para sair");
 
 }
-    */  // SEM OS DESENHOS INICIAIS
+      // SEM OS DESENHOS INICIAIS
 
 
 int main(){
 
     int op;
     
-/*    tela_ini();
-    //desenha_tela();
+    tela_ini();
+    desenha_tela();
     tela_mostra_cursor(false);
-    tela_atualiza();   */ 
+    tela_atualiza();   
 
     printf("Jogador X, digite seu nome:\n "); tela_cor_normal();
     fgets(jogadorX, 50, stdin);
@@ -244,10 +269,9 @@ int main(){
     
     return 0;
 
-/*   desenha_tela();
+    desenha_tela();
     tela_atualiza();
 
 
-    tela_fim(); */
+    tela_fim(); 
 }
-
