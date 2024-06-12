@@ -90,60 +90,87 @@ int ganhouDiagSecundaria(){
 }
 
 void desenha_jogo(){
-
     tela_retangulo(0,0,800,800, 3, transparente,preto); 
 
-    // x1, y1 e x2, y2 são as coordenadas das pontas, l a largura e corl a cor
-    //tela_linha(float x1, float y1, float x2, float y2, float l, int corl)
-            //COLUNAS 
+    //Desenhar as colunas do tabuleiro 
     tela_linha(330,250,330,550,5,azul);
     tela_linha(466,250,466,550,5,azul);
 
-            //LINHAS
+    //Desenhar as linhas do tabuleiro
     tela_linha(250,340,550,340,5,azul);
     tela_linha(250,460,550,460,5,azul);
    
-    tela_texto(400,720,15,branco, "aperte ESC para voltar");
+   //Peças no Tabuleiro
+/*   for(int i = 0; i < 3; i++){
+        for(int j = 0; j < 3; j++){
+            if(jogodavelha[i][j] == ' '){
+            int pos_x = 250 + j * 136;
+            int pos_y = 250 + i * 120;
+            
+                                                            
+            }
+        }
+    }   */
+}
+void desenha_cursor(int x, int y){  //ARRUMAR POSICAO CURSOR e CURSOR
+    tela_linha(x,y, x +9, y+2,10,branco);
+}
 
-    tela_linha(340,350,340,450,1,branco);
+void voltarMenu(){
+
+    //tela_retangulo(0,0,800,800, 3, transparente, azul);  // FUNCIONA, USEI PRA MUDAR FUNDO DO JOGO PRA AZUL
+
+    tela_texto(400,100,28,branco, "BEM VINDO AO JOGO DA VELHA");
+
+    tela_texto(400,580,19,branco, "aperte ENTER para iniciar");
+    
+    tela_texto(400,640,15,branco, "aperte Q para sair");
+
     tela_atualiza();
 
 }
 
 void jogar(){
-    int x, y, valida, ordem = 1, jogadas = 0, ganhou = 0;
+    int x = 1, y = 1, valida, ordem = 1, jogadas = 0, ganhou = 0;
     char * jogadorAtual = jogadorX;
+
+    int pos_x[3] = {250, 386, 522}; // Coordenadas X das casas do tabuleiro
+    int pos_y[3] = {250, 370, 490}; // Coordenadas Y das casas do tabuleiro
+    char move;
     
-    bool fim = false;
-    int pos_x = 100;
-    int pos_y = 100;
-    char move = tela_tecla();
-    
-    do{
+        
+    do{ 
         do{
             desenha_jogo();
-            printf("Jogador %s onde você deseja jogar?\n ", jogadorAtual); 
-            scanf("%d%d", &x, &y);
+            desenha_cursor(pos_x[x], pos_y[y]);
+            tela_texto(400,720,15,branco, jogadorAtual); 
+            tela_atualiza();
 
-               while(!fim)   // NAO FUNCIONA!!
-                //char move = tela_tecla();
-                if(move == 'w')
-                    pos_y -= 10;
-                        break;
-                if(move == 's')
-                    pos_y += 10;
-                        break;
-                if(move == 'd')
-                    pos_x += 10;
-                        break;
-                if(move == 'a')
-                    pos_x -= 10;
-                        break;
-            
- 
-            valida = lugarEvalido(x, y);
-            if(valida == 1)
+            move = tela_tecla();
+            if(move == 'W' || move == 'w'){
+                y--;
+                //pos_y -= 120;
+            }else if(move == 'S' || move == 's'){
+                y++;
+                //pos_y += 120;
+            }else if(move == 'A' || move == 'a'){
+                x--;
+                //pos_x -= 136;         
+            }else if(move == 'D' || move == 'd'){
+                x++;
+                //pos_x += 136;
+            }else if(move == 'o'){  //TROCAR
+                valida = lugarEvalido(x,y);
+                    if(valida == 1){
                 valida += posicaoValida(x, y);
+                }
+            }else if(move == '\033'){    //VOLTA MENU DPS Q INICIA
+                voltarMenu();
+                return;
+            }else {
+                valida = 0;
+            }
+
         }while(valida != 2);
         if(ordem == 1){
             jogodavelha[x][y] = 'X';
@@ -165,10 +192,10 @@ void jogar(){
             ganhou += ganhouDiagPrincipal(); 
             ganhou += ganhouDiagSecundaria();
         
-        }while(ganhou == 0 && jogadas < 9);
+        } while(ganhou == 0 && jogadas < 9);
         desenha_jogo();  // DESENHA O JOGO APOS TER UM VENCEDOR OU DER EMPATE.  
-
-        if(ganhou != 0){
+        tela_atualiza();
+/*        if(ganhou != 0){
             if(ordem - 1 == 1){
                 printf("\n    Parabens, Jogador %s foi o ganhador da vez.\n", jogadorX);
                                
@@ -179,30 +206,16 @@ void jogar(){
         }
         else {
             printf("\nO jogo empatou, inicie outra rodada!\n\n");
-        }
-        tecla_fim();  
+        }        */ 
 }  
 
   
 void desenha_tela(){
-    
+    int blue = 12;
+    tela_altera_cor(blue, 0,0,0.2, blue);
     tela_inicio(800, 800, " "); // DESENHA TELA INICIAL
 
-    //tela_retangulo(0,0,800,800, 3, transparente, azul);    // FUNCIONA, USEI PRA MUDAR FUNDO DO JOGO PRA AZUL
-
-    tela_texto(400,100,28,branco, "BEM VINDO AO JOGO DA VELHA");
-
-    tela_texto(400,580,19,branco, "aperte ENTER para iniciar");
-    
-    tela_texto(400,640,15,branco, "aperte Q para sair");
-
-    tela_atualiza();
-
-}
-
-void voltarMmenu(){
-
-    //tela_retangulo(0,0,800,800, 3, transparente, azul);  // FUNCIONA, USEI PRA MUDAR FUNDO DO JOGO PRA AZUL
+    tela_retangulo(0,0,800,800, 3, transparente, blue);    // FUNCIONA, USEI PRA MUDAR FUNDO DO JOGO PRA AZUL
 
     tela_texto(400,100,28,branco, "BEM VINDO AO JOGO DA VELHA");
 
@@ -217,35 +230,33 @@ void voltarMmenu(){
 int main(){
     int op;  
 
-    // DESENHA O MENU INICIAL DO JOGO
+    //Desenha MENU inicial
     desenha_tela();
 
     while (true) {
     char n = tela_tecla();
-        if (n == '\n'){  // VAI PARA TELA DO JG/INICIA O JOGO
-        desenha_jogo();
-        }else if(n == 'q' || n == 'Q'){   //SAI DO JOGO
+        if (n == '\n'){  //Inicia o Jogo
+        inicioMat();
+        jogar();
+        }else if(n == 'q' || n == 'Q'){   //Sai do jogo
         tela_fim();
-        }else if(n == '\033'){ // SE APERTAR ESC VOLTA PRA TELA INICIAL DO JOGO...
-        voltarMmenu();
+        }else if(n == '\033'){ // SE APERTAR ESC VOLTA PRA TELA INICIAL DO JOGO... PROVAVEL QUE TIRE, JA ESTA NA FUNCAO JOGAR
+        voltarMenu();
         }
     }
-    printf("Jogador X, digite seu nome:\n "); 
+    printf("Jogador X, digite seu nome:\n ");   // TIRAR
     fgets(jogadorX, 50, stdin);
 
-    printf("Jogador Y, digite seu nome:\n "); 
+    printf("Jogador Y, digite seu nome:\n "); //TIRAR
     fgets(jogadorO, 50, stdin);
      
     do{
     inicioMat();
     jogar();
-    printf("\n Deseja jogar outra vez?\n1 - Sim\n2 - Nao\n");
+    printf("\n Deseja jogar outra vez?\n1 - Sim\n2 - Nao\n");   // REFAZER
     scanf("%d", &op);
     
     }while(op == 1);
     
     return 0;
-
-    tela_atualiza();
-    tela_fim();
 }
