@@ -74,6 +74,7 @@ int ganhouDiagPrincipal(){
         return 1;
     else
         return 0;
+    
 }
 
 int ganhouDiagSecundaria(){
@@ -157,7 +158,7 @@ void jogar(){
               tela_retangulo(10,10,790,790, 3, vermelho,transparente);
                 tela_atualiza();  
             }
-            move = tela_tecla();
+            move = tela_tecla();   //Movimenta as posições pela W A S D.
             if(move == 'W' || move == 'w'){
                 if(x > 0) //Não deixa sair do tamanho do tabuleiro
                 x--;
@@ -218,18 +219,26 @@ void jogar(){
             desenha_jogo();
             tela_texto(400,720,14,branco,"Deu empate, aperte ENTER e inicie outra rodada!");
             tela_retangulo(10,10,790,790, 3, vermelho,transparente);
+            
+            // FAZ METADE DE UM RETANGULO DE COR AMARELA
+            tela_linha(10,790,10,10,3,amarelo); // LINHA RETA ESQUERDA
+            tela_linha(400,10,10,10,3,amarelo);  // LINHA METADE CIMA
+            tela_linha(400,790,10,790,3,amarelo); // LINHA METADE BAIXO
+
+            // FAZ METADE DO OUTRO LADO DO RETANGULO DE COR VERMELHA
+            tela_linha(790,10,790,790,3,vermelho); // LINHA RETA DIREITA
+            tela_linha(400,790,790,790,3,vermelho); // LINHA METADE BAIXO DIREITA
+            tela_linha(790,10,400,10,3,vermelho); // LINHA METADE CIMA
             tela_atualiza();
         }        
 }  
 
   
 void desenha_tela(){
-    
-    //tela_inicio(800, 800, " "); // DESENHA TELA INICIAL
 
     tela_retangulo(0,0,800,800, 3, transparente, blue);    // FUNCIONA, USEI PRA MUDAR FUNDO DO JOGO PRA AZUL
-    tela_retangulo(10,10,790,790, 3, royal,transparente);
-
+    
+    tela_retangulo(10,10,790,790, 3, royal,transparente); 
 
     tela_texto(400,100,28,branco, "BEM VINDO AO JOGO DA VELHA");
 
@@ -240,7 +249,6 @@ void desenha_tela(){
     tela_texto(378,640,20,vermelho, "Q");
 
     tela_atualiza();
-
 }
 
 int main(){
