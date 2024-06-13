@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <string.h>
-#include "tecla.h"
 #include "telag.h"
 
 char jogodavelha[3][3];
@@ -90,8 +89,10 @@ int ganhouDiagSecundaria(){
 }
 
 void desenha_jogo(){
-    tela_retangulo(0,0,800,800, 3, transparente,preto); 
-
+    tela_retangulo(0,0,800,800, 3, transparente,blue); 
+    
+    tela_texto_esq(80,20,16,branco,"ESC");  //ESC NO JOGO
+        
     //Desenhar as colunas do tabuleiro 
     tela_linha(330,250,330,550,5,azul);
     tela_linha(466,250,466,550,5,azul);
@@ -100,31 +101,39 @@ void desenha_jogo(){
     tela_linha(250,340,550,340,5,azul);
     tela_linha(250,460,550,460,5,azul);
    
-   //Peças no Tabuleiro
-/*   for(int i = 0; i < 3; i++){
-        for(int j = 0; j < 3; j++){
-            if(jogodavelha[i][j] == ' '){
-            int pos_x = 250 + j * 136;
-            int pos_y = 250 + i * 120;
-            
-                                                            
+    for(int i = 0; i < 3; i++) {
+        for(int j = 0; j < 3; j++) {
+            if (jogodavelha[i][j] != ' ') {
+                int pos_x = 280 + j * 120;
+                int pos_y = 285 + i * 120;
+                if (jogodavelha[i][j] == 'X') {
+                    tela_texto(pos_x, pos_y, 65, amarelo, "X");
+                } else {
+                    tela_texto(pos_x, pos_y, 65, vermelho, "O");
+                }
             }
         }
-    }   */
+    }
 }
-void desenha_cursor(int x, int y){  //ARRUMAR POSICAO CURSOR e CURSOR
-    tela_linha(x,y, x +9, y+2,10,branco);
+void desenha_cursor(int x, int y){  
+    int tamanho = 65;
+    tela_linha(x - tamanho / 2, y - tamanho / 2, x + tamanho / 2, y - tamanho / 2, 2, branco); // Cima
+    tela_linha(x + tamanho / 2, y - tamanho / 2, x + tamanho / 2, y + tamanho / 2, 2, branco); // Direita
+    tela_linha(x + tamanho / 2, y + tamanho / 2, x - tamanho / 2, y + tamanho / 2, 2, branco); // Fundo
+    tela_linha(x - tamanho / 2, y + tamanho / 2, x - tamanho / 2, y - tamanho / 2, 2, branco); // Esquerda
 }
 
 void voltarMenu(){
 
-    //tela_retangulo(0,0,800,800, 3, transparente, azul);  // FUNCIONA, USEI PRA MUDAR FUNDO DO JOGO PRA AZUL
+    tela_retangulo(0,0,800,800, 3, transparente, blue);    // FUNCIONA, USEI PRA MUDAR FUNDO DO JOGO PRA AZUL
 
     tela_texto(400,100,28,branco, "BEM VINDO AO JOGO DA VELHA");
 
-    tela_texto(400,580,19,branco, "aperte ENTER para iniciar");
-    
-    tela_texto(400,640,15,branco, "aperte Q para sair");
+    tela_texto(400,580,17,branco, "aperte       para iniciar");  // TEXTO INICIAL E CORES
+    tela_texto(340,580,20,verde, " ENTER");
+
+    tela_texto(400,640,15,branco, "aperte   para sair");   // TEXTO INICIAL E CORES
+    tela_texto(378,640,20,vermelho, "Q");
 
     tela_atualiza();
 
@@ -132,34 +141,42 @@ void voltarMenu(){
 
 void jogar(){
     int x = 1, y = 1, valida, ordem = 1, jogadas = 0, ganhou = 0;
-    char * jogadorAtual = jogadorX;
+    //char * jogadorAtual = jogadorX;
 
-    int pos_x[3] = {250, 386, 522}; // Coordenadas X das casas do tabuleiro
-    int pos_y[3] = {250, 370, 490}; // Coordenadas Y das casas do tabuleiro
+    int pos_x[3] = {280, 400, 520}; // Coordenadas X das casas do tabuleiro
+    int pos_y[3] = {285, 400, 515}; // Coordenadas Y das casas do tabuleiro
     char move;
-    
-        
+    char *alteraJogador;
+    char cor_Jogador;
+
     do{ 
         do{
             desenha_jogo();
-            desenha_cursor(pos_x[x], pos_y[y]);
-            tela_texto(400,720,15,branco, jogadorAtual); 
+            desenha_cursor(pos_x[y], pos_y[x]);
+             if (ordem == 1) {
+            alteraJogador = "Jogador X, sua vez!";
+            cor_Jogador = amarelo;
+            } else {
+            alteraJogador = "Jogador O, sua vez!";
+            cor_Jogador = vermelho;
+            }
+            tela_texto(400,720,22,cor_Jogador, alteraJogador); 
             tela_atualiza();
 
             move = tela_tecla();
             if(move == 'W' || move == 'w'){
-                y--;
-                //pos_y -= 120;
-            }else if(move == 'S' || move == 's'){
-                y++;
-                //pos_y += 120;
-            }else if(move == 'A' || move == 'a'){
+                if(x > 0) //Não deixa sair do tamanho do tabuleiro
                 x--;
-                //pos_x -= 136;         
-            }else if(move == 'D' || move == 'd'){
+            }else if(move == 'S' || move == 's'){
+                if(x < 2)
                 x++;
-                //pos_x += 136;
-            }else if(move == 'o'){  //TROCAR
+            }else if(move == 'A' || move == 'a'){
+                if(y > 0)
+                y--;        
+            }else if(move == 'D' || move == 'd'){
+                if(y < 2)
+                y++;
+            }else if(move == '\n'){  //TROCAR
                 valida = lugarEvalido(x,y);
                     if(valida == 1){
                 valida += posicaoValida(x, y);
@@ -179,10 +196,10 @@ void jogar(){
         jogadas++;
         ordem++;
 
-        if(jogadas % 2 == 0) // ALTERNA ENTRE OS JOGADORES
-            jogadorAtual = jogadorX;
-        else{
-            jogadorAtual = jogadorO; //*/
+        if(jogadas % 2 == 0){ // ALTERNA ENTRE OS JOGADORES
+            tela_texto(400,720,15,branco,"Jogador X, sua vez!");
+        }else{
+            tela_texto(400,720,15,branco,"Jogador O, sua vez!");
         }
        
             if(ordem == 3)
@@ -195,40 +212,41 @@ void jogar(){
         } while(ganhou == 0 && jogadas < 9);
         desenha_jogo();  // DESENHA O JOGO APOS TER UM VENCEDOR OU DER EMPATE.  
         tela_atualiza();
-/*        if(ganhou != 0){
+        if(ganhou != 0){
             if(ordem - 1 == 1){
-                printf("\n    Parabens, Jogador %s foi o ganhador da vez.\n", jogadorX);
-                               
+                tela_texto(400,720,15,branco, "Parabens, Jogador foi o ganhador da vez.");  //ARRUMAR
             }
             else{
-                printf("\n Parabens, Jogador %s foi o ganhador da vez.\n", jogadorO);
+                tela_texto(400,720,15,branco, "Parabens, Jogador foi o ganhador da vez."); //ARRUMAR
+                tela_atualiza();
             }
         }
         else {
-            printf("\nO jogo empatou, inicie outra rodada!\n\n");
-        }        */ 
+            tela_texto(400,720,15,branco,"O jogo empatou, aperte ENTER para iniciar outra rodada!");
+        }        
 }  
 
   
 void desenha_tela(){
-    int blue = 12;
-    tela_altera_cor(blue, 0,0,0.2, blue);
+    
     tela_inicio(800, 800, " "); // DESENHA TELA INICIAL
 
     tela_retangulo(0,0,800,800, 3, transparente, blue);    // FUNCIONA, USEI PRA MUDAR FUNDO DO JOGO PRA AZUL
 
     tela_texto(400,100,28,branco, "BEM VINDO AO JOGO DA VELHA");
 
-    tela_texto(400,580,19,branco, "aperte ENTER para iniciar");
-    
-    tela_texto(400,640,15,branco, "aperte Q para sair");
+    tela_texto(400,580,17,branco, "aperte       para iniciar");  // TEXTO INICIAL E CORES
+    tela_texto(340,580,20,verde, " ENTER");
+
+    tela_texto(400,640,15,branco, "aperte   para sair");   // TEXTO INICIAL E CORES
+    tela_texto(378,640,20,vermelho, "Q");
 
     tela_atualiza();
 
 }
 
 int main(){
-    int op;  
+    //int op;  
 
     //Desenha MENU inicial
     desenha_tela();
@@ -240,8 +258,6 @@ int main(){
         jogar();
         }else if(n == 'q' || n == 'Q'){   //Sai do jogo
         tela_fim();
-        }else if(n == '\033'){ // SE APERTAR ESC VOLTA PRA TELA INICIAL DO JOGO... PROVAVEL QUE TIRE, JA ESTA NA FUNCAO JOGAR
-        voltarMenu();
         }
     }
     printf("Jogador X, digite seu nome:\n ");   // TIRAR
@@ -250,13 +266,14 @@ int main(){
     printf("Jogador Y, digite seu nome:\n "); //TIRAR
     fgets(jogadorO, 50, stdin);
      
-    do{
+/*   do{
     inicioMat();
     jogar();
-    printf("\n Deseja jogar outra vez?\n1 - Sim\n2 - Nao\n");   // REFAZER
+    tela_texto(400,720,15,branco,"aperte ENTER para iniciar outra rodada ou X para sair"); // REFAZER
+    tela_atualiza();
     scanf("%d", &op);
     
     }while(op == 1);
-    
+    */
     return 0;
 }
