@@ -86,6 +86,8 @@ void tela_texto_dir(float x, float y, int tam, int c, char t[]);
 #define blue 10
 #define royal 11
 #define mediumPurple 12
+#define navyBlue 13
+#define indigoRoxo 14
 
 // altera uma cor (cor entre 0 e 99, componentes entre 0 e 1)
 void tela_altera_cor(int cor,
