@@ -4,7 +4,6 @@
 #include "telag.h"
 
 char jogodavelha[3][3];
-char jogadorX[50], jogadorO[50];
 
 void inicioMat(){
     for(int i = 0; i < 3; i++){
