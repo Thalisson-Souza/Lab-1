@@ -176,9 +176,10 @@ void desenho_EMPATE(){
     tela_linha(790,10,402,10,3,vermelho); // Linha metade cima
     tela_atualiza();
 }
+
 void jogar(){  //Função principal que controla o loop do jogo da velha
     int x = 1, y = 1, valida, ordem = 1, jogadas = 0, ganhou = 0;
-
+    
     int pos_x[3] = {280, 400, 520}; // Coordenadas X das casas do tabuleiro
     int pos_y[3] = {285, 400, 515}; // Coordenadas Y das casas do tabuleiro
     char move;
@@ -189,7 +190,7 @@ void jogar(){  //Função principal que controla o loop do jogo da velha
         do{
             desenha_jogo();
             desenha_cursor(pos_x[y], pos_y[x]);
-            if (ordem == 1) {
+            if (ordem == 1) { //Altera os jogadores a cada rodada.
             alteraJogador = "Jogador X, sua vez!";
             cor_Jogador = amarelo;
             } else {
@@ -202,7 +203,8 @@ void jogar(){  //Função principal que controla o loop do jogo da velha
             }else {
                 desenhaContorno_Vermelho();
             }
-            //Movimenta as posições pela W A S D.
+            
+            //Movimenta as posições pelas teclas W,A,S,D.
             move = tela_tecla();   
             if(move == 'W' || move == 'w'){
                 if(x > 0) //Não deixa sair do tamanho do tabuleiro.
@@ -229,7 +231,7 @@ void jogar(){  //Função principal que controla o loop do jogo da velha
             }
 
         }while(valida != 2);
-        if(ordem == 1){  //Quem joga primeiro
+        if(ordem == 1){  //Quem joga primeiro.
             jogodavelha[x][y] = 'X';
         }else 
             jogodavelha[x][y] = 'O';
@@ -248,7 +250,7 @@ void jogar(){  //Função principal que controla o loop do jogo da velha
         tela_atualiza();
     
         if(ganhou != 0){
-            if(ordem - 1 == 1){ //Mensagem informando quem ganhou.
+            if(ordem - 1 == 1){ //Mensagem informando quem foi o ganhador.
                 desenha_jogo();
                 tela_texto(400,630,17,amarelo, "Jogador X foi o ganhador da vez!");
                 desenhoVencedor_X(); //Função que desenha nas cores quando X ganha.
@@ -268,8 +270,8 @@ void jogar(){  //Função principal que controla o loop do jogo da velha
 
 void desenha_tela(){
     tela_retangulo(0,0,800,800, 3, transparente, blue);  //Cor de fundo da tela
-    tela_retangulo(10,10,790,790, 3, azul,transparente); //Faz um contorno de linha envolta da tela
-    tela_texto(460,130,42,branco, "JOGO DA"); //Textos MENU inicial.
+    tela_retangulo(10,10,790,790, 3, azul,transparente); //Faz um contorno com linha envolta da tela
+    tela_texto(460,130,42,branco, "JOGO DA"); //Textos do MENU inicial.
     tela_texto(400,200,85,azul,"VELHA");
     tela_texto(400,580,17,branco, "aperte       para iniciar");  
     tela_texto(340,580,20,azul, " ENTER");
@@ -280,7 +282,7 @@ void desenha_tela(){
 }
 
 int main(){
-    tela_inicio(800, 800, " ");  //Cria a tela
+    tela_inicio(800, 800, "GAME");  //Cria a tela
     desenha_tela(); //Desenha o Menu
 
     while (true) {
@@ -288,9 +290,9 @@ int main(){
         if (n == '\n'){  //Inicia o Jogo
             inicioMat();
             jogar();
-        }else if(n == 'x' || n == 'X'){   //Sai do jogo
+        }else if(n == 'x' || n == 'X'){  //Sai do jogo
             tela_fim();
-        }else if(n == '\033'){ //Volta ao menu
+        }else if(n == '\033'){ //Volta ao MENU
             voltarMenu();
         }
     }
