@@ -49,6 +49,8 @@ static void tela_inicializa_cores(void)
   tela_altera_cor(blue, 0, 0, 0.2, 1);
   tela_altera_cor(royal, 0.25, 0.41, 0.88, 1);
   tela_altera_cor(mediumPurple, 0.57, 0.43, 0.85, 1);
+  tela_altera_cor(navyBlue, 0, 0, 0.501, 1);
+  tela_altera_cor(indigoRoxo, 0.294, 0, 0.509, 1);
 }
 
 void tela_altera_cor(int cor,
