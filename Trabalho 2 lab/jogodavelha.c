@@ -1,6 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
 #include "telag.h"
 
 char jogodavelha[3][3];
@@ -128,19 +126,19 @@ void voltarMenu(){
         return;
 }
 
-void desenhaContorno_Amarelo(){
+void desenhaContorno_Amarelo(){ //Desenhos de cores apenas.
     tela_retangulo(10,10,790,790, 3, amarelo,transparente); 
     tela_retangulo(26,24,84,46, 3, amarelo,transparente);
     tela_atualiza();
 }
 
-void desenhaContorno_Vermelho(){
+void desenhaContorno_Vermelho(){ //Desenhos de cores apenas.
     tela_retangulo(10,10,790,790, 3, vermelho,transparente); 
-    tela_retangulo(26,24,84,46, 3, vermelho,transparente); // Desenha uma linha envolta da escrita ESC
+    tela_retangulo(26,24,84,46, 3, vermelho,transparente); 
     tela_atualiza();
 }
 
-void desenhoVencedor_X(){
+void desenhoVencedor_X(){ //Desenhos de cores apenas.
     tela_retangulo(10,10,790,790, 3, amarelo,transparente);
     tela_retangulo(26,24,84,46, 3, amarelo,transparente);
     tela_retangulo(245,745,555,775,3, amarelo, transparente);
@@ -148,7 +146,7 @@ void desenhoVencedor_X(){
     tela_atualiza();
 }
 
-void desenhoVencedor_O(){
+void desenhoVencedor_O(){ //Desenhos de cores apenas.
     tela_retangulo(10,10,790,790, 3, vermelho,transparente);
     tela_retangulo(26,24,84,46, 3, vermelho,transparente);
     tela_retangulo(245,745,555,775,3, vermelho, transparente);
@@ -156,8 +154,8 @@ void desenhoVencedor_O(){
     tela_atualiza();
 }
 
-void desenho_EMPATE(){
-        //Faz um contorno de uma escrita na tela, com cores diferentes.
+void desenho_EMPATE(){ //Desenhos de cores apenas.
+    //Faz um contorno de uma escrita na tela, com cores diferentes.
     tela_linha(25.5,24,52,24,3,amarelo); //Cima
     tela_linha(26,46,26,24,3,amarelo); // Esquerda reto
     tela_linha(25.5,46,52,46,3,amarelo);   //Baixo
@@ -166,7 +164,7 @@ void desenho_EMPATE(){
     tela_linha(84,46,84,24,3,vermelho); // direita reto
     tela_linha(56,46,85,46,3,vermelho);   //Baixo
 
-        //Faz um contorno na tela com cores diferentes.
+    //Faz um contorno na tela com cores diferentes.
     tela_linha(10,790,10,10,3,amarelo); // Linha reta esquerda
     tela_linha(398,790,10,790,3,amarelo); // Linha metade baixo
     tela_linha(398,10,10,10,3,amarelo);  // Linha metade cima
@@ -177,7 +175,7 @@ void desenho_EMPATE(){
     tela_atualiza();
 }
 
-void jogar(){  //Função principal que controla o loop do jogo da velha
+void jogar(){  //Função principal que controla o loop do jogo da velha.
     int x = 1, y = 1, valida, ordem = 1, jogadas = 0, ganhou = 0;
     
     int pos_x[3] = {280, 400, 520}; // Coordenadas X das casas do tabuleiro
@@ -190,21 +188,22 @@ void jogar(){  //Função principal que controla o loop do jogo da velha
         do{
             desenha_jogo();
             desenha_cursor(pos_x[y], pos_y[x]);
-            if (ordem == 1) { //Altera os jogadores a cada rodada.
+            if (ordem == 1) {  //Altera os jogadores a cada rodada.
             alteraJogador = "Jogador X, sua vez!";
             cor_Jogador = amarelo;
             } else {
             alteraJogador = "Jogador O, sua vez!";
             cor_Jogador = vermelho;
             }
-                tela_texto(400,720,22,cor_Jogador, alteraJogador);   //Altera cor da letra conforme o jogador da vez.
-            if(ordem == 1){ //Desenha uma linha envolta da tela na cor do jogador da vez.
+                tela_texto(400,720,22,cor_Jogador, alteraJogador);  //Altera cor da letra conforme o jogador da vez.
+
+            if(ordem == 1){ //Desenho de cores conforme o jogador da vez.
                 desenhaContorno_Amarelo();
             }else {
                 desenhaContorno_Vermelho();
             }
             
-            //Movimenta as posições pelas teclas W,A,S,D.
+            //Movimentação principal das posições pelas teclas W,A,S,D.
             move = tela_tecla();   
             if(move == 'W' || move == 'w'){
                 if(x > 0) //Não deixa sair do tamanho do tabuleiro.
@@ -252,18 +251,18 @@ void jogar(){  //Função principal que controla o loop do jogo da velha
         if(ganhou != 0){
             if(ordem - 1 == 1){ //Mensagem informando quem foi o ganhador.
                 desenha_jogo();
-                tela_texto(400,630,17,amarelo, "Jogador X foi o ganhador da vez!");
+                tela_texto(400,650,19,amarelo, "Jogador X foi o ganhador da vez!");
                 desenhoVencedor_X(); //Função que desenha nas cores quando X ganha.
             }
             else{
                 desenha_jogo();
-                tela_texto(400,630,17,vermelho, "Jogador O foi o ganhador da vez!"); 
+                tela_texto(400,650,19,vermelho, "Jogador O foi o ganhador da vez!"); 
                 desenhoVencedor_O(); //Função que desenha nas cores quando O ganha.
             }
         }
         else{   
             desenha_jogo();
-            tela_texto(400,720,14,branco,"Deu empate, aperte ENTER e inicie outra rodada!");
+            tela_texto(400,720,15,branco,"Deu empate, aperte ENTER e inicie outra rodada!");
             desenho_EMPATE(); //Função que desenha na tela as cores de EMPATE.
         }        
 }  
@@ -277,7 +276,7 @@ void desenha_tela(){
     tela_texto(340,580,20,azul, " ENTER");
     tela_texto(400,640,15,branco, "aperte   para sair");   
     tela_texto(378,640,20,vermelho, "X");
-
+    
     tela_atualiza();
 }
 
@@ -285,14 +284,14 @@ int main(){
     tela_inicio(800, 800, "GAME");  //Cria a tela
     desenha_tela(); //Desenha o Menu
 
-    while (true) {
-    char n = tela_tecla();
-        if (n == '\n'){  //Inicia o Jogo
+    while (true) { //Comandos de inicio e fim do jogo.
+    char tecla = tela_tecla();
+        if (tecla == '\n'){  //Inicia o Jogo
             inicioMat();
             jogar();
-        }else if(n == 'x' || n == 'X'){  //Sai do jogo
+        }else if(tecla == 'x' || tecla == 'X'){  //Sai do jogo
             tela_fim();
-        }else if(n == '\033'){ //Volta ao MENU
+        }else if(tecla == '\033'){ //Volta ao MENU
             voltarMenu();
         }
     }
