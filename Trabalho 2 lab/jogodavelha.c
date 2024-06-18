@@ -10,14 +10,12 @@ void inicioMat(){
         }
     }
 }
-
 int valido(char letra){
     if(letra == 'X' || letra == 'O')
         return 1;
     else
         return 0;
 }
-
 int lugarEvalido(int x, int y){
     if(x >= 0 && x < 3){
         if(y >= 0 && y < 3)
@@ -25,13 +23,11 @@ int lugarEvalido(int x, int y){
     }
     return 0;
 }
-
 int posicaoValida(int x, int y){
     if(jogodavelha[x][y] != 'X' && jogodavelha[x][y] != 'O')
         return 1;
     return 0;
 }
-
 int ganhouLinhas(){
     int igual = 1;
     for(int i = 0; i < 3; i++){
@@ -45,7 +41,6 @@ int ganhouLinhas(){
     }
         return 0;    
 }    
-
 int ganhouColunas(){
     int igual = 1;
     for(int i = 0; i < 3; i++){
@@ -59,7 +54,6 @@ int ganhouColunas(){
     }
         return 0;
 }
-
 int ganhouDiagPrincipal(){
     int igual = 1;
     for(int i = 0; i < 2; i++){
@@ -71,7 +65,6 @@ int ganhouDiagPrincipal(){
     else
         return 0;
 }
-
 int ganhouDiagSecundaria(){
     int igual = 1;
     for(int i = 0; i < 2; i++){
@@ -83,7 +76,6 @@ int ganhouDiagSecundaria(){
     else
         return 0;
 }
-
 void desenha_jogo(){
     tela_retangulo(0,0,800,800, 3, transparente,blue);  //Cor de fundo do jogo
     tela_texto_esq(80,28,16,branco,"ESC");  //Desenha ESC no jogo
@@ -111,7 +103,6 @@ void desenha_jogo(){
         }
     }
 }
-
 void desenha_cursor(int x, int y){  
     int tamanho = 80;
     tela_linha(x - tamanho / 2, y - tamanho / 2, x + tamanho / 2, y - tamanho / 2, 2, branco);
@@ -119,25 +110,21 @@ void desenha_cursor(int x, int y){
     tela_linha(x + tamanho / 2, y + tamanho / 2, x - tamanho / 2, y + tamanho / 2, 2, branco);
     tela_linha(x - tamanho / 2, y + tamanho / 2, x - tamanho / 2, y - tamanho / 2, 2, branco);
 }
-
 void voltarMenu(){
     void desenha_tela();
         desenha_tela();
         return;
 }
-
 void desenhaContorno_Amarelo(){ //Desenhos de cores apenas.
     tela_retangulo(10,10,790,790, 3, amarelo,transparente); 
     tela_retangulo(26,24,84,46, 3, amarelo,transparente);
     tela_atualiza();
 }
-
 void desenhaContorno_Vermelho(){ //Desenhos de cores apenas.
     tela_retangulo(10,10,790,790, 3, vermelho,transparente); 
     tela_retangulo(26,24,84,46, 3, vermelho,transparente); 
     tela_atualiza();
 }
-
 void desenhoVencedor_X(){ //Desenhos de cores apenas.
     tela_retangulo(10,10,790,790, 3, amarelo,transparente);
     tela_retangulo(26,24,84,46, 3, amarelo,transparente);
@@ -145,7 +132,6 @@ void desenhoVencedor_X(){ //Desenhos de cores apenas.
     tela_texto(400,760,15,branco,"ENTER para reiniciar");
     tela_atualiza();
 }
-
 void desenhoVencedor_O(){ //Desenhos de cores apenas.
     tela_retangulo(10,10,790,790, 3, vermelho,transparente);
     tela_retangulo(26,24,84,46, 3, vermelho,transparente);
@@ -153,7 +139,6 @@ void desenhoVencedor_O(){ //Desenhos de cores apenas.
     tela_texto(400,760,15,branco,"ENTER para reiniciar");
     tela_atualiza();
 }
-
 void desenho_EMPATE(){ //Desenhos de cores apenas.
     //Faz um contorno de uma escrita na tela, com cores diferentes.
     tela_linha(25.5,24,52,24,3,amarelo); 
@@ -166,12 +151,24 @@ void desenho_EMPATE(){ //Desenhos de cores apenas.
 
     //Faz um contorno na tela com cores diferentes.
     tela_linha(10,790,10,10,3,amarelo); 
-    tela_linha(398,790,10,790,3,amarelo); 
-    tela_linha(398,10,10,10,3,amarelo);  
+    tela_linha(399.5,790,10,790,3,amarelo); 
+    tela_linha(399.5,10,10,10,3,amarelo);  
 
     tela_linha(790,10,790,790,3,vermelho); 
-    tela_linha(402,790,790,790,3,vermelho); 
-    tela_linha(790,10,402,10,3,vermelho); 
+    tela_linha(399.5,790,790,790,3,vermelho); 
+    tela_linha(790,10,399.5,10,3,vermelho); 
+
+    //Faz um contorno na tela com cores diferentes.
+    tela_linha(245,745,398,745,3,amarelo);
+    tela_linha(402,745,555,745,3,vermelho);
+    
+    tela_linha(245,775,398,775,3,amarelo);
+    tela_linha(402,775,555,775,3,vermelho);
+    
+    tela_linha(245,776,245,744,3,amarelo);
+    tela_linha(555,776,555,744,3,vermelho);
+    tela_texto(400,760,15,branco,"ENTER para reiniciar");
+
     tela_atualiza();
 }
 
@@ -251,18 +248,18 @@ void jogar(){  //Função principal que controla o loop do jogo da velha.
         if(ganhou != 0){
             if(ordem - 1 == 1){ //Mensagem informando quem foi o ganhador.
                 desenha_jogo();
-                tela_texto(400,650,19,amarelo, "Jogador X foi o ganhador da vez!");
+                tela_texto(400,650,20,amarelo, "Jogador X foi o ganhador da vez!");
                 desenhoVencedor_X(); //Função que desenha nas cores quando X ganha.
             }
             else{
                 desenha_jogo();
-                tela_texto(400,650,19,vermelho, "Jogador O foi o ganhador da vez!"); 
+                tela_texto(400,650,20,vermelho, "Jogador O foi o ganhador da vez!"); 
                 desenhoVencedor_O(); //Função que desenha nas cores quando O ganha.
             }
         }
         else{   
             desenha_jogo();
-            tela_texto(400,720,15,branco,"Deu empate, aperte ENTER e inicie outra rodada!");
+            tela_texto(400,650,20,branco,"Empate!");
             desenho_EMPATE(); //Função que desenha na tela as cores de EMPATE.
         }        
 }  
@@ -276,7 +273,7 @@ void desenha_tela(){
     tela_texto(340,580,20,azul, " ENTER");
     tela_texto(400,640,15,branco, "aperte   para sair");   
     tela_texto(378,640,20,vermelho, "X");
-    
+
     tela_atualiza();
 }
 
