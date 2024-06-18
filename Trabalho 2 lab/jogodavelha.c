@@ -85,7 +85,7 @@ int ganhouDiagSecundaria(){
 }
 
 void desenha_jogo(){
-    tela_retangulo(0,0,800,800, 3, transparente,blue);  //Cor fundo do jogo
+    tela_retangulo(0,0,800,800, 3, transparente,blue);  //Cor de fundo do jogo
     tela_texto_esq(80,28,16,branco,"ESC");  //Desenha ESC no jogo
         
     //Desenhar as colunas do tabuleiro 
@@ -114,10 +114,10 @@ void desenha_jogo(){
 
 void desenha_cursor(int x, int y){  
     int tamanho = 80;
-    tela_linha(x - tamanho / 2, y - tamanho / 2, x + tamanho / 2, y - tamanho / 2, 2, branco); // Cima
-    tela_linha(x + tamanho / 2, y - tamanho / 2, x + tamanho / 2, y + tamanho / 2, 2, branco); // Direita
-    tela_linha(x + tamanho / 2, y + tamanho / 2, x - tamanho / 2, y + tamanho / 2, 2, branco); // Fundo
-    tela_linha(x - tamanho / 2, y + tamanho / 2, x - tamanho / 2, y - tamanho / 2, 2, branco); // Esquerda
+    tela_linha(x - tamanho / 2, y - tamanho / 2, x + tamanho / 2, y - tamanho / 2, 2, branco);
+    tela_linha(x + tamanho / 2, y - tamanho / 2, x + tamanho / 2, y + tamanho / 2, 2, branco);
+    tela_linha(x + tamanho / 2, y + tamanho / 2, x - tamanho / 2, y + tamanho / 2, 2, branco);
+    tela_linha(x - tamanho / 2, y + tamanho / 2, x - tamanho / 2, y - tamanho / 2, 2, branco);
 }
 
 void voltarMenu(){
@@ -156,22 +156,22 @@ void desenhoVencedor_O(){ //Desenhos de cores apenas.
 
 void desenho_EMPATE(){ //Desenhos de cores apenas.
     //Faz um contorno de uma escrita na tela, com cores diferentes.
-    tela_linha(25.5,24,52,24,3,amarelo); //Cima
-    tela_linha(26,46,26,24,3,amarelo); // Esquerda reto
-    tela_linha(25.5,46,52,46,3,amarelo);   //Baixo
+    tela_linha(25.5,24,52,24,3,amarelo); 
+    tela_linha(26,46,26,24,3,amarelo); 
+    tela_linha(25.5,46,52,46,3,amarelo);   
 
-    tela_linha(56,24,85,24,3,vermelho); //Cima
-    tela_linha(84,46,84,24,3,vermelho); // direita reto
-    tela_linha(56,46,85,46,3,vermelho);   //Baixo
+    tela_linha(56,24,85,24,3,vermelho); 
+    tela_linha(84,46,84,24,3,vermelho); 
+    tela_linha(56,46,85,46,3,vermelho);   
 
     //Faz um contorno na tela com cores diferentes.
-    tela_linha(10,790,10,10,3,amarelo); // Linha reta esquerda
-    tela_linha(398,790,10,790,3,amarelo); // Linha metade baixo
-    tela_linha(398,10,10,10,3,amarelo);  // Linha metade cima
+    tela_linha(10,790,10,10,3,amarelo); 
+    tela_linha(398,790,10,790,3,amarelo); 
+    tela_linha(398,10,10,10,3,amarelo);  
 
-    tela_linha(790,10,790,790,3,vermelho); // Linha reta direita
-    tela_linha(402,790,790,790,3,vermelho); // Linha metade baixo
-    tela_linha(790,10,402,10,3,vermelho); // Linha metade cima
+    tela_linha(790,10,790,790,3,vermelho); 
+    tela_linha(402,790,790,790,3,vermelho); 
+    tela_linha(790,10,402,10,3,vermelho); 
     tela_atualiza();
 }
 
@@ -237,7 +237,7 @@ void jogar(){  //Função principal que controla o loop do jogo da velha.
         jogadas++;
         ordem++;
 
-            if(ordem == 3)
+            if(ordem == 3)  //Verifica quem ganhou.
                 ordem = 1;
             ganhou += ganhouLinhas(); 
             ganhou += ganhouColunas(); 
@@ -267,7 +267,7 @@ void jogar(){  //Função principal que controla o loop do jogo da velha.
         }        
 }  
 
-void desenha_tela(){
+void desenha_tela(){ 
     tela_retangulo(0,0,800,800, 3, transparente, blue);  //Cor de fundo da tela
     tela_retangulo(10,10,790,790, 3, azul,transparente); //Faz um contorno com linha envolta da tela
     tela_texto(460,130,42,branco, "JOGO DA"); //Textos do MENU inicial.
