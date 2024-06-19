@@ -104,11 +104,11 @@ void desenha_jogo(){
     }
 }
 void desenha_cursor(int x, int y){  
-    int tamanho = 80;
-    tela_linha(x - tamanho / 2, y - tamanho / 2, x + tamanho / 2, y - tamanho / 2, 2, branco);
-    tela_linha(x + tamanho / 2, y - tamanho / 2, x + tamanho / 2, y + tamanho / 2, 2, branco);
-    tela_linha(x + tamanho / 2, y + tamanho / 2, x - tamanho / 2, y + tamanho / 2, 2, branco);
-    tela_linha(x - tamanho / 2, y + tamanho / 2, x - tamanho / 2, y - tamanho / 2, 2, branco);
+    int tamanho = 40;
+    tela_linha(x - tamanho, y - tamanho, x + tamanho, y - tamanho, 2, branco);
+    tela_linha(x + tamanho, y - tamanho, x + tamanho, y + tamanho, 2, branco);
+    tela_linha(x + tamanho, y + tamanho, x - tamanho, y + tamanho, 2, branco);
+    tela_linha(x - tamanho, y + tamanho, x - tamanho, y - tamanho, 2, branco);
 }
 void voltarMenu(){
     void desenha_tela();
