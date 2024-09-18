@@ -6,7 +6,7 @@
 int pos_x[3] = {280, 400, 520}; // Coordenadas X das casas do tabuleiro
 int pos_y[3] = {285, 400, 515}; // Coordenadas Y das casas do tabuleiro
 
-// Definição da struct para armazenar o estado do jogo
+// Definição da struct para armazenar o estado do jogo.
 typedef struct {
     char jogodavelha[3][3];
     int ordem;  // 1 para X, 2 para O
